@@ -1,0 +1,385 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Recommended meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <!-- PyScript CSS -->
+        <link rel="stylesheet" href="https://pyscript.net/releases/2024.3.1/core.css">
+        <!-- This script tag bootstraps PyScript -->
+        <script type="module" src="https://pyscript.net/releases/2024.3.1/core.js"></script>
+    </head>
+    <body>
+        import time
+        import random
+
+        attacks = ["*You swing your weapon*", "*You drive your weapon into your enemy*", "*You slash your weapon*", "*You attack valiantly*", "*You plunge your weapon into the enemy*", "*You use all youre strength and strike the enemy*"]
+        receive_attack = ["*You recieve a powerful hit but it's not enough to defeat you*", "*You get hit hard*", "*Your enemy scares you*"]
+
+        def TesterMenu():
+            global gold
+            global health
+            global strength
+            global stamina
+            print("---Tester Menu---")
+            print("1. Skip stage")
+            print("2. Add money")
+            print("3. OP Stats")
+            ans = input("Option: ")
+            if ans == "1":
+                print("---Skip Stage---")
+                print("1. Start")
+                print("2. Town")
+                print("3. Quest 1")
+                ans = input("Option: ")
+                if ans == "1":
+                    start()
+                elif ans == "2":
+                    town()
+                elif ans == "3":
+                    quest1()
+            elif ans == "2":
+                print("---Add Money---")
+                strength = 6
+                stamina = 6
+                health = 100
+                gold = 999999999999999
+                print("Lots of gold added.")
+                TesterMenu()
+            elif ans == "3":
+                print("---OP Stats---")
+                stength = 999999999999999999
+                stamina = 999999999999999999
+                health = 9999999999999999999
+                print("Goblins now fear your name.")
+                TesterMenu()
+
+        def quest1():
+            global strength
+            global stamina
+            global magic
+            global health
+            global gold
+            global attacks
+            global receive_attack
+            print("Arthur: It's good to see you again")
+            time.sleep(3)
+            print("Arthur: After your victory with the goblin the clan has sent more to block the path")
+            time.sleep(3)
+            goblin1 = 25
+            goblin2 = 50
+            goblin3 = 25
+            total = 100
+            while total == 0 or health >= 0:
+                print("---Who do you attack?---")
+                print("1. Basic Goblin:", goblin1)
+                print("2. Advanced Goblin:", goblin2)
+                print("3. Basic Goblin:", goblin3)
+                print("Health:", health)
+                ans = input("Make your choice: ")
+                if ans == "1":
+                    goblin1 = goblin1 - strength
+                    total = total - strength
+                    print(random.choice(attacks))
+                    time.sleep(3)
+                    if goblin1 <= 0:
+                        goblin1 = 0
+                    print("*The Goblin Attacks...*")
+                    time.sleep(3)
+                    print(random.choice(receive_attack))
+                    time.sleep(3)
+                elif ans == "2":
+                    goblin2 = goblin2 - strength
+                    total = total - strength
+                    print(random.choice(attacks))
+                    time.sleep(3)
+                    print("*The Goblin Attacks...*")
+                    time.sleep(3)
+                    print(random.choice(receive_attack))
+                    time.sleep(3)
+                    if goblin2 <= 0:
+                        goblin2 = 0
+                elif ans == "3":
+                    goblin3 = goblin3 - strength
+                    total = total - strength
+                    print(random.choice(attacks))
+                    time.sleep(3)
+                    print("*The Goblin Attacks...*")
+                    time.sleep(3)
+                    print(random.choice(receive_attack))
+                    time.sleep(3)
+                    if goblin3 <= 0:
+                        goblin3 = 0
+                alive = 3
+                if goblin1 == 0:
+                    alive = alive - 1
+                elif goblin2 == 0:
+                    alive = alive - 1
+                elif goblin3 == 0:
+                    alive = alive - 1
+                else:
+                    alive = 3
+                for i in range(alive):
+                    attack = random.randint(1,11)
+                    health = health - attack
+                    print("The goblins take ", attack, " health from you")
+                if health <= 0:
+                    print("You died")
+                else:
+                    print(" ")
+                
+        def town():
+            global gold
+            global health
+            def tavern():
+                global gold
+                global health
+                global strength
+                global stamina
+                print("*You enter the Taven*")
+                print("---What Quest would you like to do?---")
+                print("1. Arthur and the Goblin Clan")
+                print("2. Work in Progress")
+                print("3. Work in Progress")
+                ans = input("Make your choice: ")
+                if ans == "1":
+                    quest1()
+            def weapons():
+                global gold
+                global health
+                global strength
+                print("---Weaponry---")
+                print("1. Dagger, 50 Gold                      [+10 Strength]")
+                print("2. Short Sword, 100 Gold                [+25 Strength]")
+                print("3. Flail Mace, 200 Gold                 [+50 Strength]")
+                print("4. Exit")
+                print("Balance:", gold)
+                ans = input("Make your choice: ")
+                if ans == "1" and gold >= 50:
+                    gold = gold - 50
+                    strength = strength + 10
+                    print("*You bought a Dagger [+10 Strength]*")
+                    town()
+                elif ans == "2" and gold >= 100:
+                    gold = gold - 100
+                    strength = strength + 25
+                    print("*You bought a Short Sword [+25 Strength]*")
+                    town()
+                elif ans == "3" and gold >= 200:
+                    gold = gold - 200
+                    strength = strength + 50
+                    print("*You bought a Flail Mace [+50 Strength]*")
+                    town()
+                elif ans == "4" or ans.lower() == "exit":
+                    town()
+                else:
+                    print("You cannot affored this item, the shop keeper kicks you out.")
+                    town()
+            
+            def armoury():
+                global gold
+                global health
+                print("---Armoury---")
+                print("1. Basic Armour, 50 Gold                [+10 Health]")
+                print("2. Advanced Armour, 100 Gold            [+25 Health]")
+                print("3. very very very good armour, 200 Gold [+50 Health]")
+                print("4. Exit")
+                print("Balance:", gold)
+                ans = input("Make your choice: ")
+                if ans == "1" and gold >= 50:
+                    gold = gold - 50
+                    health = health + 10
+                    print("*You bought Basic Armour [+10 Health]*")
+                    town()
+                elif ans == "2" and gold >= 100:
+                    gold = gold - 100
+                    health = health + 25
+                    print("*You bought Basic Armour [+25 Health]*")
+                    town()
+                elif ans == "3" and gold >= 200:
+                    gold = gold - 200
+                    health = health + 50
+                    print("*You bought very very very good armour [+50 Health]*")
+                    town()
+                elif ans == "4" or ans.lower() == "exit":
+                    town()
+                else:
+                    print("You cannot afford this item.")
+                    time.sleep(3)
+                    armoury()
+            print("You arrive in the town of Salthook.")
+            time.sleep(3)
+            print("---Where would you like to go?---")
+            print("1. Armoury Shop [Buy more health]")
+            print("2. Weapon Shop  [Buy better weapons]")
+            print("3. Tavern       [Get quests from Arthur]")
+            ans = input("Make your choice: ")
+            if ans == "1":
+                armoury()
+            elif ans == "2":
+                weapons()
+            elif ans == "3":
+                tavern()
+            elif ans == "test":
+                gold = gold + 999999999999
+                town()
+
+        def start():
+            global strength
+            global stamina
+            global magic
+            global health
+            global gold
+            global attack
+            global recieve_attack
+            print("Nelson the Wizard: Lets see here...")
+            time.sleep(3)
+            if strength >= 5:
+                print("Nelson the Wizard: You are quite strong, very good!")
+            else:
+                print("Nelson the Wizard: You aren't that strong but that will be made up in your stamina!")
+                stamina = stamina + 3
+            time.sleep(3)
+            if stamina >= 5:
+                print("Nelson the Wizard: You have lot's of stamina brilliant!")
+            else:
+                print("Nelson the Wizard: You don't have much stamina unfortunately.")
+            time.sleep(3)
+            print("Nelson the Wizard: Now", name, "you must pick what you will be.")
+            time.sleep(3)
+            print("---Class Picker---")
+            print("1. Barbarian [Str + 5]")
+            print("2. Knight    [Str + 2, Sta + 2]")
+            print("3. Wizard    [ ??? ]")
+            class_ = input("Pick your Class: ")
+            if class_ == "1" or class_.lower() == "barbarian":
+                strength = strength + 5
+            elif class_ == "2" or class_.lower() == "knight":
+                strength = strength + 2
+                stamina = stamina + 2
+            elif class_ == "3" or class_.lower() == "wizard":
+                magic = magic + 100
+            elif class_ == "test":
+                town()
+            else:
+                print("Invalid Class try again :[")
+
+            time.sleep(3)
+            print("Nelson the Wizard: I must go now")
+            time.sleep(3)
+            print("Nelson the Wizard: Just remember every story is different, so make this one count.")
+            time.sleep(3)
+            print("*Nelson fades away...*")
+            time.sleep(5)
+            print("*You realise this was all a dream.*")
+            time.sleep(5)
+            print("*Or... was it?*")
+            time.sleep(5)
+            print("------Dragon Tooth------")
+            time.sleep(5)
+            print("You: Zzz Zzz")
+            time.sleep(3)
+            print("*You hear a quiet voice...*")
+            time.sleep(3)
+            print("You: Zzz Zzz")
+            time.sleep(3)
+            print("???: Wake up")
+            time.sleep(3)
+            print("You: ...")
+            time.sleep(3)
+            print("???: WAKE UP")
+            time.sleep(3)
+            print("---Do you wake up?---")
+            print("1. Yes")
+            print("2. No")
+            ans = input("Make your choice?: ")
+            if ans == "1" or ans.lower() == "yes":
+                print("*You wake up*")
+                time.sleep(3)
+            elif ans == "2" or ans.lower() == "no":
+                stamina = stamina + 2
+                print("*You gained 2 stamina because you slept for longer...*")
+                time.sleep(3)
+                health = health - 2
+                print("*The mystery voice throws a bucket of water at you.*")
+                time.sleep(3)
+                print("*The shock of the water made you loose 2 Health...*")
+                time.sleep(3)
+                print("*You wake up.*")
+                time.sleep(3)
+            print("*You open your eyes and see the face of the mystery voice.")
+            print("---Is he a friend or enemy?---")
+            print("1. Friend")
+            print("2. Enemy [Doesn't work yet]")
+            ans = input("Make your choice?: ")
+            if ans == "1" or ans.lower() == "friend":
+                print("You: Hey there, my names", name + " what's yours? ")
+                time.sleep(3)
+                print("Arthur: My name is Arthur")
+                time.sleep(3)
+                print("Arthur: As payment for helping you, I need to to kill some goblins in the forest.")
+                time.sleep(3)
+                print("Arthur: They are blocking the path to town and we need to get there.")
+                time.sleep(3)
+                print("Arthur: Here is some loot to protect you.")
+                time.sleep(3)
+                print("You get a wooden sword with gives you +5 strength")
+                time.sleep(3)
+                print("*A goblin stand in your path.*")
+                time.sleep(3)
+                goblin1 = 25
+                while goblin1 > 0 or health <= 0:
+                    print("---Who do you attack?---")
+                    print("1. Goblin 1: ", goblin1)
+                    print(name, "'s Health: ", health)
+                    ans = input("Make your choice: ")
+                    if ans == "1" or ans.lower() == "goblin 1":
+                        goblin1 = goblin1 - strength
+                        print(random.choice(attacks))
+                        time.sleep(3)
+                        print("*The Goblin Attacks...*")
+                        time.sleep(3)
+                        print(random.choice(receive_attack))
+                        time.sleep(3)
+                    else:
+                        print("Invalid choice")
+                    attack = random.randint(1,11)
+                    health = health - attack
+                    print("The goblins take ", attack, " health from you")
+                if health <=0:
+                    print("You died")
+                else:
+                    print("Arthur: Nice you did it!")
+                print("*Arthur gives you 100 gold as a reward, you can go to the town to spend it*")
+                gold = gold + 100
+                time.sleep(3)
+                print("---Do you wish to go to the town or accept another quest from Arthur?---")
+                print("1. Go to town")
+                print("2. Carry on with the quest")
+                ans = input("Make your choice: ")
+                if ans == "1":
+                    town()
+                else:
+                    print("*You carry on with the quest*")
+                    time.sleep(3)
+                    quest1()
+            elif ans == "2" or ans.lower() == "enemy":
+                print("enemy")
+
+        name = input("Nelson the Wizard: Hey there traveller what is your name?: ")
+        if name == "tester".lower():
+            TesterMenu()
+        else:
+            print("You: My name is", name + ".")
+            time.sleep(3)
+            print("Nelson the Wizard: Hey there", name, " Welcome to Dragon Tooth")
+            time.sleep(3)
+            strength = random.randint(1, 11)
+            stamina = random.randint(1, 11)
+            magic = 0 # You get magic if you choose the Wizard class
+            health = 100 # Goes down if you get damaged throughout the game
+            gold = 0 # You can use money to buy better gear thoughout the game
+
+        start()
+    </body>
+</html>

@@ -9,10 +9,19 @@
 }
 
 body {
-    background: #f9f9f9;
+    background: #fff;
     min-height: 100vh;
     overflow-x: hidden;
+
+    background-image: url('pexels-pok-rie-33563-2049422.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
 }
+
+
+
+
 
 header{
     position: absolute;
@@ -24,17 +33,20 @@ header{
     justify-content: space-between;
     align-items: center;
     z-index: 100;
+
+     background: rgba(255, 255, 255, 0.2);
+     backdrop-filter: blur(10px);
 }
 
 .logo {
     font-size: 2em;
-    color: #2596be;
+    color: #fff;
     pointer-events: none;
 }
 
 .navigation a {
     text-decoration: none;
-    color: #2596be;
+    color: #fff;
     padding: 6px 15px;
     border-radius: 20px;
     margin: 0 10px;
@@ -43,8 +55,8 @@ header{
 
 .navigation a:hover, 
 .navigation a.active{
-    background: #2596be;
-    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blue(10px);
 }
 
 .parallax {
@@ -59,4 +71,31 @@ header{
     position: relative;
     font-size: 5em;
     color: #333;
+}
+
+.aboutme {
+    background: #333;
+    text-align: center;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.white-text {
+    color: #fff;
+}
+
+html {
+  scroll-padding-top: 80px; /* adjust to your navbar height */
+  scroll-behavior: smooth;
+}
+
+#about {
+    scroll-margin-top: 0;
+}
+
+#about img {
+  width: 200px;
+  border-radius: 50%;
+  display: block;
+  margin: 20px auto;
 }
